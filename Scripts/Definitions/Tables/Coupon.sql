@@ -1,0 +1,15 @@
+IF NOT EXISTS (SELECT  1 FROM SYS.TABLES WHERE NAME = 'Coupon')
+	BEGIN
+
+		CREATE TABLE Coupon (
+			Id INT NOT NULL IDENTITY (1, 1),
+			Code VARCHAR(45) NOT NULL
+			CONSTRAINT DF_Coupon_Code DEFAULT(''),
+			DisccountAmount FLOAT NOT NULL
+			CONSTRAINT DF_Coupon_DisccountAmount DEFAULT(0),
+			MinAmount FLOAT NOT NULL
+			CONSTRAINT DF_Coupon_MinAmount DEFAULT(0)
+		);
+
+	END;
+GO
