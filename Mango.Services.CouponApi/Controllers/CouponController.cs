@@ -1,6 +1,6 @@
+using CommonLibrary.Dtos.Coupon;
 using EssentialLayers.Dapper.Services.Procedure;
 using EssentialLayers.Helpers.Result;
-using Mango.Services.CouponApi.Dtos.Coupon;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mango.Services.CouponApi.Controllers

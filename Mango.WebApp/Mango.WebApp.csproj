@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EssentialLayers" Version="1.5.2" />
+    <PackageReference Include="EssentialLayers" Version="1.6.0" />
     <PackageReference Include="EssentialLayers.Request" Version="1.2.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj" />
   </ItemGroup>
 
 </Project>

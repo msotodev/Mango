@@ -1,4 +1,4 @@
-﻿namespace Mango.Services.CouponApi.Dtos.Coupon
+﻿namespace CommonLibrary.Dtos.Coupon
 {
 	public class NewCouponRequestDto
 	{

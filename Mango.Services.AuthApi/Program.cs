@@ -1,15 +1,24 @@
-var builder = WebApplication.CreateBuilder(args);
+using Mango.Services.AuthApi.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
-// Add services to the container.
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<AppDbContext>(option =>
+	{
+		option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+	}
+);
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().
+	AddEntityFrameworkStores<AppDbContext>().
+	AddDefaultTokenProviders();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
@@ -17,9 +26,21 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
+ApplyMigration();
+
 app.Run();
+void ApplyMigration()
+{
+	using IServiceScope scope = app.Services.CreateScope();
+	AppDbContext dataBase = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+	if (dataBase.Database.GetPendingMigrations().Any())
+	{
+		dataBase.Database.Migrate();
+	}
+}
