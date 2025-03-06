@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{5BE890
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLibrary", "CommonLibrary\CommonLibrary.csproj", "{2E2EE4A1-6B11-408B-9AE2-DBAF4DDAB62D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Services.ProductApi", "Mango.Services.ProductApi\Mango.Services.ProductApi.csproj", "{70EAC4E8-4826-4001-B1B1-BB859E61D7BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{2E2EE4A1-6B11-408B-9AE2-DBAF4DDAB62D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E2EE4A1-6B11-408B-9AE2-DBAF4DDAB62D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E2EE4A1-6B11-408B-9AE2-DBAF4DDAB62D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70EAC4E8-4826-4001-B1B1-BB859E61D7BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70EAC4E8-4826-4001-B1B1-BB859E61D7BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70EAC4E8-4826-4001-B1B1-BB859E61D7BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70EAC4E8-4826-4001-B1B1-BB859E61D7BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,5 +58,6 @@ Global
 		{3A089534-D9C6-47F0-9682-0FE972228E75} = {CBCB14E9-2C9B-4D57-B6DA-4004B881A12D}
 		{72FB8833-9184-4B96-9E30-4675428F1EE0} = {4BBEB706-1123-4D05-B940-3B608215E4C8}
 		{2E2EE4A1-6B11-408B-9AE2-DBAF4DDAB62D} = {5BE890E1-6639-4817-AC90-2AB266E6C4A0}
+		{70EAC4E8-4826-4001-B1B1-BB859E61D7BF} = {4BBEB706-1123-4D05-B940-3B608215E4C8}
 	EndGlobalSection
 EndGlobal

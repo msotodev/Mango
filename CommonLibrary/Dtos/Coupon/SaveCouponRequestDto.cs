@@ -1,6 +1,6 @@
 ﻿namespace CommonLibrary.Dtos.Coupon
 {
-	public class NewCouponRequestDto
+	public class SaveCouponRequestDto
 	{
 		public int Id { get; set; }
 
@@ -9,5 +9,7 @@
 		public double DisccountAmount { get; set; }
 
 		public int MinAmount { get; set; }
+
+		public string UserId { get; set; } = string.Empty;
 	}
 }

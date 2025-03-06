@@ -1,8 +1,12 @@
 using EssentialLayers.Request;
-using EssentialLayers.Request.Models;
 using Mango.WebApp.Components;
 using Mango.WebApp.Service;
+using Mango.WebApp.Service.Auth;
 using Mango.WebApp.Service.Coupon;
+using Mango.WebApp.Service.Session;
+using Mango.WebApp.Service.Token;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using MudBlazor.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +16,22 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 
 builder.Services.UseRequest();
+builder.Services.AddMudServices();
 
-builder.Services.AddScoped<ICouponService, CouponService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<ISessionService, SessionService>();
 builder.Services.AddScoped<IServiceBase, ServiceBase>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ICouponService, CouponService>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+	option =>
+	{
+		option.ExpireTimeSpan = TimeSpan.FromHours(10);
+		option.LoginPath = "/Auth/Login";
+		option.AccessDeniedPath = "/Auth/AccessDenied";
+	}
+);
 
 WebApplication app = builder.Build();
 
@@ -24,16 +41,10 @@ if (!app.Environment.IsDevelopment())
 	app.UseHsts();
 }
 
-IConfiguration? configuration = app.Services.GetService<IConfiguration>();
-
-app.Services.ConfigureRequest(
-	new HttpOption
-	{
-		BaseUri	= configuration?.GetSection("ServicesUrls").GetValue<string>("CouponApi")!,
-	}
-);
-
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseStaticFiles();
 app.UseAntiforgery();

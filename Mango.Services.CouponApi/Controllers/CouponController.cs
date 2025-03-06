@@ -1,10 +1,12 @@
 using CommonLibrary.Dtos.Coupon;
 using EssentialLayers.Dapper.Services.Procedure;
 using EssentialLayers.Helpers.Result;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mango.Services.CouponApi.Controllers
 {
+	[Authorize]
 	[ApiController]
 	[Route("[controller]")]
 	public class CouponController(IProcedureService procedureService) : ControllerBase
@@ -67,11 +69,12 @@ namespace Mango.Services.CouponApi.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ResultHelper<QueryCouponResultDto>> Post(NewCouponRequestDto request)
+		[Authorize(Roles = "ADMIN")]
+		public async Task<ResultHelper<QueryCouponResultDto>> Post(SaveCouponRequestDto request)
 		{
 			try
 			{
-				ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, NewCouponRequestDto>(
+				ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, SaveCouponRequestDto>(
 					request, "spSaveCoupon"
 				);
 
@@ -84,11 +87,12 @@ namespace Mango.Services.CouponApi.Controllers
 		}
 
 		[HttpPut]
-		public async Task<ResultHelper<QueryCouponResultDto>> Put(NewCouponRequestDto request)
+		[Authorize(Roles = "ADMIN")]
+		public async Task<ResultHelper<QueryCouponResultDto>> Put(SaveCouponRequestDto request)
 		{
 			try
 			{
-				ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, NewCouponRequestDto>(
+				ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, SaveCouponRequestDto>(
 					request, "spSaveCoupon"
 				);
 
@@ -101,12 +105,13 @@ namespace Mango.Services.CouponApi.Controllers
 		}
 
 		[HttpDelete]
-		public async Task<ResultHelper<QueryCouponResultDto>> Delete(int id)
+		[Authorize(Roles = "ADMIN")]
+		public async Task<ResultHelper<QueryCouponResultDto>> Delete(DeleteCouponRequestDto request)
 		{
 			try
 			{
 				ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, DeleteCouponRequestDto>(
-					new DeleteCouponRequestDto { Id = id }, "spDeleteCoupon"
+					request, "spDeleteCoupon"
 				);
 
 				return result;

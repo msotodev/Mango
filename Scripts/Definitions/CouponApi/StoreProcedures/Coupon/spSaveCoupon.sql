@@ -7,6 +7,7 @@ ALTER PROCEDURE spSaveCoupon (
 	@Code VARCHAR(45),
 	@DisccountAmount FLOAT,
 	@MinAmount FLOAT,
+	@UserId VARCHAR(45),
 	@ReturnsObject BIT = 1
 )
 AS
@@ -53,14 +54,22 @@ SET NOCOUNT ON
 				UPDATE dbo.Coupon SET
 					Code = @Code,
 					DisccountAmount = @DisccountAmount,
-					MinAmount = @MinAmount
+					MinAmount = @MinAmount,
+					Updated = GETDATE(),
+					UpdatedBy = @UserId
 				WHERE Id = @Id;
 			END;
 		ELSE
 			BEGIN
 				INSERT INTO dbo.Coupon (
-					Code, DisccountAmount, MinAmount
-				) VALUES (@Code, @DisccountAmount, @MinAmount);
+					Code, DisccountAmount, MinAmount,
+					Created, CreatedBy, Updated,
+					UpdatedBy
+				) VALUES (
+					@Code, @DisccountAmount, @MinAmount,
+					GETDATE(), @UserId, GETDATE(),
+					@UserId
+				);
 			END;
 
 		GOTO _FinTran;

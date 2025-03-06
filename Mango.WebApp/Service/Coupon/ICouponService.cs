@@ -13,8 +13,8 @@ namespace Mango.WebApp.Service.Coupon
 
 		Task<HttpResponse<QueryCouponResultDto>> GetAsync(string code);
 
-		Task<HttpResponse<QueryCouponResultDto>> Post(NewCouponRequestDto request);
+		Task<HttpResponse<QueryCouponResultDto>> Post(SaveCouponRequestDto request);
 
-		Task<HttpResponse<QueryCouponResultDto>> Put(NewCouponRequestDto request);
+		Task<HttpResponse<QueryCouponResultDto>> Put(SaveCouponRequestDto request);
 	}
 }

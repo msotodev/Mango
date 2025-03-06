@@ -1,0 +1,27 @@
+IF NOT EXISTS (SELECT  1 FROM SYS.TABLES WHERE NAME = 'Product')
+	BEGIN
+
+		CREATE TABLE Product (
+			Id INT NOT NULL IDENTITY (1, 1)
+			CONSTRAINT PK_Product_Id PRIMARY KEY (Id),
+			Name VARCHAR(45) NOT NULL
+			CONSTRAINT DF_Product_Name DEFAULT(''),
+			Price DECIMAL(18, 2) NOT NULL
+			CONSTRAINT DF_Product_Price DEFAULT(0),
+			CategoryId INT NOT NULL
+			CONSTRAINT DF_Product_CategoryId DEFAULT(-1)
+			CONSTRAINT FK_Product_CategoryId FOREIGN KEY (CategoryId) REFERENCES Category (Id),
+			ImageUrl VARCHAR(1024) NOT NULL
+			CONSTRAINT DF_Product_ImageUrl DEFAULT(''),
+			Created DATETIME NOT NULL
+			CONSTRAINT DF_Product_Created DEFAULT('1900-01-01 00:00:00.0'),
+			CreatedBy VARCHAR(45) NOT NULL
+			CONSTRAINT DF_Product_CreatedBy DEFAULT(''),
+			Updated DATETIME NOT NULL
+			CONSTRAINT DF_Product_Updated DEFAULT('1900-01-01 00:00:00.0'),
+			UpdatedBy VARCHAR(45) NOT NULL
+			CONSTRAINT DF_Product_UpdatedBy DEFAULT('')
+		);
+
+	END;
+GO
