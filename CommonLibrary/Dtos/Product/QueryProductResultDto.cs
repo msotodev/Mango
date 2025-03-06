@@ -1,6 +1,6 @@
 ﻿namespace CommonLibrary.Dtos.Product
 {
-	public class QueryProductResultDto
+	public class QueryProductResultDto : ResultDto
 	{
 		public int Id { get; set; }
 

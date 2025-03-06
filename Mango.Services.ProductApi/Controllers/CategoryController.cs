@@ -53,11 +53,11 @@ namespace Mango.Services.ProductApi.Controllers
 
 		[HttpPost]
 		[Authorize(Roles = "ADMIN")]
-		public async Task<ResultHelper<QueryCategoryResultDto>> Post(SaveCategoryRequestDto request)
+		public async Task<ResultHelper<QueryCategoryResultDto>> Post(NewCategoryRequestDto request)
 		{
 			try
 			{
-				ResultHelper<QueryCategoryResultDto> result = await _procedureService.ExecuteAsync<QueryCategoryResultDto, SaveCategoryRequestDto>(
+				ResultHelper<QueryCategoryResultDto> result = await _procedureService.ExecuteAsync<QueryCategoryResultDto, NewCategoryRequestDto>(
 					request, "spSaveCategory"
 				);
 
@@ -71,11 +71,11 @@ namespace Mango.Services.ProductApi.Controllers
 
 		[HttpPut]
 		[Authorize(Roles = "ADMIN")]
-		public async Task<ResultHelper<QueryCategoryResultDto>> Put(SaveCategoryRequestDto request)
+		public async Task<ResultHelper<QueryCategoryResultDto>> Put(UpdateCategoryRequestDto request)
 		{
 			try
 			{
-				ResultHelper<QueryCategoryResultDto> result = await _procedureService.ExecuteAsync<QueryCategoryResultDto, SaveCategoryRequestDto>(
+				ResultHelper<QueryCategoryResultDto> result = await _procedureService.ExecuteAsync<QueryCategoryResultDto, UpdateCategoryRequestDto>(
 					request, "spSaveCategory"
 				);
 

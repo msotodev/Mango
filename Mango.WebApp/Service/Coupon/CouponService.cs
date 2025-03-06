@@ -66,18 +66,18 @@ namespace Mango.WebApp.Service.Coupon
 			return result;
 		}
 
-		public async Task<HttpResponse<QueryCouponResultDto>> Post(SaveCouponRequestDto request)
+		public async Task<HttpResponse<QueryCouponResultDto>> Post(NewCouponRequestDto request)
 		{
-			HttpResponse<QueryCouponResultDto> result = await _httpService.PostAsync<QueryCouponResultDto, SaveCouponRequestDto>(
+			HttpResponse<QueryCouponResultDto> result = await _httpService.PostAsync<QueryCouponResultDto, NewCouponRequestDto>(
 				request, "Coupon"
 			);
 
 			return result;
 		}
 
-		public async Task<HttpResponse<QueryCouponResultDto>> Put(SaveCouponRequestDto request)
+		public async Task<HttpResponse<QueryCouponResultDto>> Put(UpdateCouponRequestDto request)
 		{
-			HttpResponse<QueryCouponResultDto> result = await _httpService.PutAsync<QueryCouponResultDto, SaveCouponRequestDto>(
+			HttpResponse<QueryCouponResultDto> result = await _httpService.PutAsync<QueryCouponResultDto, UpdateCouponRequestDto>(
 				request, "Coupon"
 			);
 

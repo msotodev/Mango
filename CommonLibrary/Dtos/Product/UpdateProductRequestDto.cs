@@ -1,6 +1,6 @@
 ﻿namespace CommonLibrary.Dtos.Product
 {
-	public class SaveProductRequestDto
+	public class UpdateProductRequestDto
 	{
 		public int Id { get; set; }
 

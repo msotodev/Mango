@@ -70,11 +70,11 @@ namespace Mango.Services.CouponApi.Controllers
 
 		[HttpPost]
 		[Authorize(Roles = "ADMIN")]
-		public async Task<ResultHelper<QueryCouponResultDto>> Post(SaveCouponRequestDto request)
+		public async Task<ResultHelper<QueryCouponResultDto>> Post(NewCouponRequestDto request)
 		{
 			try
 			{
-				ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, SaveCouponRequestDto>(
+				ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, NewCouponRequestDto>(
 					request, "spSaveCoupon"
 				);
 
@@ -88,11 +88,11 @@ namespace Mango.Services.CouponApi.Controllers
 
 		[HttpPut]
 		[Authorize(Roles = "ADMIN")]
-		public async Task<ResultHelper<QueryCouponResultDto>> Put(SaveCouponRequestDto request)
+		public async Task<ResultHelper<QueryCouponResultDto>> Put(UpdateCouponRequestDto request)
 		{
 			try
 			{
-				ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, SaveCouponRequestDto>(
+				ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, UpdateCouponRequestDto>(
 					request, "spSaveCoupon"
 				);
 

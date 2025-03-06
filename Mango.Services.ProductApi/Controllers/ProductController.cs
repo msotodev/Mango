@@ -53,11 +53,11 @@ namespace Mango.Services.ProductApi.Controllers
 
 		[HttpPost]
 		[Authorize(Roles = "ADMIN")]
-		public async Task<ResultHelper<QueryProductResultDto>> Post(SaveProductRequestDto request)
+		public async Task<ResultHelper<QueryProductResultDto>> Post(NewProductRequestDto request)
 		{
 			try
 			{
-				ResultHelper<QueryProductResultDto> result = await _procedureService.ExecuteAsync<QueryProductResultDto, SaveProductRequestDto>(
+				ResultHelper<QueryProductResultDto> result = await _procedureService.ExecuteAsync<QueryProductResultDto, NewProductRequestDto>(
 					request, "spSaveProduct"
 				);
 
@@ -71,11 +71,11 @@ namespace Mango.Services.ProductApi.Controllers
 
 		[HttpPut]
 		[Authorize(Roles = "ADMIN")]
-		public async Task<ResultHelper<QueryProductResultDto>> Put(SaveProductRequestDto request)
+		public async Task<ResultHelper<QueryProductResultDto>> Put(UpdateProductRequestDto request)
 		{
 			try
 			{
-				ResultHelper<QueryProductResultDto> result = await _procedureService.ExecuteAsync<QueryProductResultDto, SaveProductRequestDto>(
+				ResultHelper<QueryProductResultDto> result = await _procedureService.ExecuteAsync<QueryProductResultDto, UpdateProductRequestDto>(
 					request, "spSaveProduct"
 				);
 
