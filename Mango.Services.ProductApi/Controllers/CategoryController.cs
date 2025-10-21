@@ -4,6 +4,7 @@ using EssentialLayers.Helpers.Extension;
 using EssentialLayers.Helpers.Result;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using static CommonLibrary.Constants.RoleConstant;
 
 namespace Mango.Services.ProductApi.Controllers
@@ -17,13 +18,22 @@ namespace Mango.Services.ProductApi.Controllers
 		[HttpGet]
 		public async Task<IActionResult> GetAsync()
 		{
-			ResultHelper<IEnumerable<QueryCategoryResultDto>> result = await procedureService.ExecuteAllAsync<QueryCategoryResultDto, object>(
-				new { }, "spQueryCategories"
-			);
+			try
+			{
+				ResultHelper<IEnumerable<QueryCategoryResultDto>> result = await procedureService.ExecuteAllAsync<QueryCategoryResultDto, object>(
+					new { }, "spQueryCategories"
+				);
 
-			if (result.Ok.False()) return BadRequest(result.Message);
+				if (result.Ok.False()) return BadRequest(result.Message);
 
-			return Ok(result.Data);
+				return Ok(result.Data);
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e);
+
+				return BadRequest(e);
+			}
 		}
 
 		[HttpGet]
