@@ -1,6 +1,4 @@
-using AutoMapper;
 using EssentialLayers.Dapper;
-using Mango.Services.ProductApi.Helpers;
 using Mango.Services.ProductApi.Helpers.Extensions;
 
 namespace Mango.Services.ProductApi
@@ -19,10 +17,6 @@ namespace Mango.Services.ProductApi
 
 			builder.Services.AddAuthorization();
 			builder.Services.UseDapper();
-
-			IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
-			builder.Services.AddSingleton(mapper);
-			//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 			WebApplication app = builder.Build();
 

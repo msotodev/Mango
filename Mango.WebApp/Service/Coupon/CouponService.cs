@@ -3,11 +3,14 @@ using EssentialLayers.Request.Helpers;
 using EssentialLayers.Request.Models;
 using EssentialLayers.Request.Services.Http;
 using Mango.WebApp.Service.Auth;
+using static EssentialLayers.Request.Helpers.Types.HttpTypes;
 
 namespace Mango.WebApp.Service.Coupon
 {
 	public class CouponService : ICouponService
 	{
+		private const string CONTROLLER_NAME = "Coupon";
+
 		private readonly IHttpService _httpService;
 
 		/**/
@@ -24,7 +27,7 @@ namespace Mango.WebApp.Service.Coupon
 				new HttpOption
 				{
 					BaseUri = configuration?.GetSection("ServicesUrls").GetValue<string>("CouponApi")!,
-					CastResultAsResultHelper = true,
+					ResultType = ResultType.ResultHelper,
 					BearerToken = authService.Token
 				}
 			);
@@ -33,7 +36,7 @@ namespace Mango.WebApp.Service.Coupon
 		public async Task<HttpResponse<QueryCouponResultDto>> Delete(int id)
 		{
 			HttpResponse<QueryCouponResultDto> result = await _httpService.DeleteAsync<QueryCouponResultDto, object>(
-				new { id }, "Coupon"
+				new { id }, CONTROLLER_NAME
 			);
 
 			return result;
@@ -42,16 +45,16 @@ namespace Mango.WebApp.Service.Coupon
 		public async Task<HttpResponse<IEnumerable<QueryCouponResultDto>>> GetAsync()
 		{
 			HttpResponse<IEnumerable<QueryCouponResultDto>> result = await _httpService.GetAsync<IEnumerable<QueryCouponResultDto>>(
-				"Coupon"
+				CONTROLLER_NAME
 			);
-		
+
 			return result;
 		}
 
 		public async Task<HttpResponse<QueryCouponResultDto>> GetAsync(int id)
 		{
 			HttpResponse<QueryCouponResultDto> result = await _httpService.GetAsync<QueryCouponResultDto>(
-				$"Coupon/{id}"
+				$"{CONTROLLER_NAME}/{id}"
 			);
 
 			return result;
@@ -60,7 +63,7 @@ namespace Mango.WebApp.Service.Coupon
 		public async Task<HttpResponse<QueryCouponResultDto>> GetAsync(string code)
 		{
 			HttpResponse<QueryCouponResultDto> result = await _httpService.GetAsync<QueryCouponResultDto>(
-				$"Coupon/ByCode/{code}"
+				$"{CONTROLLER_NAME}/ByCode/{code}"
 			);
 
 			return result;
@@ -69,7 +72,7 @@ namespace Mango.WebApp.Service.Coupon
 		public async Task<HttpResponse<QueryCouponResultDto>> Post(NewCouponRequestDto request)
 		{
 			HttpResponse<QueryCouponResultDto> result = await _httpService.PostAsync<QueryCouponResultDto, NewCouponRequestDto>(
-				request, "Coupon"
+				request, CONTROLLER_NAME
 			);
 
 			return result;
@@ -78,7 +81,7 @@ namespace Mango.WebApp.Service.Coupon
 		public async Task<HttpResponse<QueryCouponResultDto>> Put(UpdateCouponRequestDto request)
 		{
 			HttpResponse<QueryCouponResultDto> result = await _httpService.PutAsync<QueryCouponResultDto, UpdateCouponRequestDto>(
-				request, "Coupon"
+				request, CONTROLLER_NAME
 			);
 
 			return result;

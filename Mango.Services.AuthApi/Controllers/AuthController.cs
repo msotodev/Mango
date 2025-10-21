@@ -28,7 +28,7 @@ namespace Mango.Services.AuthApi.Controllers
 		{
 			ResultHelper<LoginResponseDto> result = await _authService.LoginAsync(request);
 
-			return Ok(result);
+			return Ok(result.Data);
 		}
 
 		[HttpPost("Register")]

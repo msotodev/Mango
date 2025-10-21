@@ -8,9 +8,9 @@ namespace Mango.WebApp.Components.Pages
 {
 	public partial class Home
 	{
-		[Inject] private AuthenticationStateProvider AuthenticationState { get; set; }
+		[Inject] private AuthenticationStateProvider AuthenticationState { get; set; } = default!;
 
-		[Inject] private IAuthService AuthService { get; set; }
+		[Inject] private IAuthService AuthService { get; set; } = default!;
 
 		/**/
 

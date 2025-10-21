@@ -18,11 +18,7 @@ namespace Mango.WebApp.Service
 			RequestDto<TRequest> request
 		)
 		{
-			HttpResponse<TResult> response = HttpResponse<TResult>.Fail(
-				string.Empty, HttpStatusCode.InternalServerError
-			);
-
-			response = request.ApiType switch
+			return request.ApiType switch
 			{
 				ApiType.GET => await _httpService.GetAsync<TResult>(
 					request.Url, new RequestOptions(request.Token)
@@ -40,8 +36,6 @@ namespace Mango.WebApp.Service
 					$"The method {request.ApiType} doesn't exist", HttpStatusCode.BadRequest
 				),
 			};
-
-			return new ResultHelper<TResult>(response.Ok, response.Message, response.Data);
 		}
 	}
 }

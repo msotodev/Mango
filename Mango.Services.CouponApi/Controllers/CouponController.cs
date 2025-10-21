@@ -1,8 +1,10 @@
 using CommonLibrary.Dtos.Coupon;
 using EssentialLayers.Dapper.Services.Procedure;
+using EssentialLayers.Helpers.Extension;
 using EssentialLayers.Helpers.Result;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static CommonLibrary.Constants.RoleConstant;
 
 namespace Mango.Services.CouponApi.Controllers
 {
@@ -16,110 +18,78 @@ namespace Mango.Services.CouponApi.Controllers
 		/**/
 
 		[HttpGet]
-		public async Task<ResultHelper<IEnumerable<QueryCouponResultDto>>> GetAsync()
+		public async Task<IActionResult> GetAsync()
 		{
-			try
-			{
-				ResultHelper<IEnumerable<QueryCouponResultDto>> result = await _procedureService.ExecuteAllAsync<QueryCouponResultDto, object>(
-					new { }, "spQueryCoupons"
-				);
+			ResultHelper<IEnumerable<QueryCouponResultDto>> result = await _procedureService.ExecuteAllAsync<QueryCouponResultDto, object>(
+				new { }, "spQueryCoupons"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<IEnumerable<QueryCouponResultDto>>.Fail(e);
-			}
+			return Ok(result.Data);
 		}
 
 		[HttpGet]
 		[Route("{id:int}")]
-		public async Task<ResultHelper<QueryCouponResultDto>> GetAsync(int id)
+		public async Task<IActionResult> GetAsync(int id)
 		{
-			try
-			{
-				ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, QueryCouponRequestDto>(
-					new QueryCouponRequestDto { Id = id }, "spQueryCoupons"
-				);
+			ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, QueryCouponRequestDto>(
+				new QueryCouponRequestDto { Id = id }, "spQueryCoupons"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<QueryCouponResultDto>.Fail(e);
-			}
+			if (result.Ok.False()) return BadRequest(result.Message);
+
+			return Ok(result.Data);
 		}
 
 		[HttpGet]
 		[Route("ByCode/{code}")]
-		public async Task<ResultHelper<QueryCouponResultDto>> GetAsync(string code)
+		public async Task<IActionResult> GetAsync(string code)
 		{
-			try
-			{
-				ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, CouponByCodeRquestDto>(
-					new CouponByCodeRquestDto { Code = code }, "spQueryCouponsByCode"
-				);
+			ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, CouponByCodeRquestDto>(
+				new CouponByCodeRquestDto { Code = code }, "spQueryCouponsByCode"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<QueryCouponResultDto>.Fail(e);
-			}
+			if (result.Ok.False()) return BadRequest(result.Message);
+
+			return Ok(result.Data);
 		}
 
 		[HttpPost]
-		[Authorize(Roles = "ADMIN")]
-		public async Task<ResultHelper<QueryCouponResultDto>> Post(NewCouponRequestDto request)
+		[Authorize(Roles = ADMIN)]
+		public async Task<IActionResult> Post(NewCouponRequestDto request)
 		{
-			try
-			{
-				ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, NewCouponRequestDto>(
-					request, "spSaveCoupon"
-				);
+			ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, NewCouponRequestDto>(
+				request, "spSaveCoupon"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<QueryCouponResultDto>.Fail(e);
-			}
+			if (result.Ok.False()) return BadRequest(result.Message);
+
+			return Ok(result.Data);
 		}
 
 		[HttpPut]
-		[Authorize(Roles = "ADMIN")]
-		public async Task<ResultHelper<QueryCouponResultDto>> Put(UpdateCouponRequestDto request)
+		[Authorize(Roles = ADMIN)]
+		public async Task<IActionResult> Put(UpdateCouponRequestDto request)
 		{
-			try
-			{
-				ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, UpdateCouponRequestDto>(
-					request, "spSaveCoupon"
-				);
+			ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, UpdateCouponRequestDto>(
+				request, "spSaveCoupon"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<QueryCouponResultDto>.Fail(e);
-			}
+			if (result.Ok.False()) return BadRequest(result.Message);
+
+			return Ok(result.Data);
 		}
 
 		[HttpDelete]
-		[Authorize(Roles = "ADMIN")]
-		public async Task<ResultHelper<QueryCouponResultDto>> Delete(DeleteCouponRequestDto request)
+		[Authorize(Roles = ADMIN)]
+		public async Task<IActionResult> Delete(DeleteCouponRequestDto request)
 		{
-			try
-			{
-				ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, DeleteCouponRequestDto>(
-					request, "spDeleteCoupon"
-				);
+			ResultHelper<QueryCouponResultDto> result = await _procedureService.ExecuteAsync<QueryCouponResultDto, DeleteCouponRequestDto>(
+				request, "spDeleteCoupon"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<QueryCouponResultDto>.Fail(e);
-			}
+			if (result.Ok.False()) return BadRequest(result.Message);
+
+			return Ok(result.Data);
 		}
 	}
 }

@@ -1,8 +1,10 @@
 using CommonLibrary.Dtos.Product;
 using EssentialLayers.Dapper.Services.Procedure;
+using EssentialLayers.Helpers.Extension;
 using EssentialLayers.Helpers.Result;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static CommonLibrary.Constants.RoleConstant;
 
 namespace Mango.Services.ProductApi.Controllers
 {
@@ -12,97 +14,68 @@ namespace Mango.Services.ProductApi.Controllers
 		IProcedureService procedureService
 	) : ControllerBase
 	{
-		private readonly IProcedureService _procedureService = procedureService;
-
-		/**/
-
 		[HttpGet]
-		public async Task<ResultHelper<IEnumerable<QueryProductResultDto>>> GetAsync()
+		public async Task<IActionResult> GetAsync()
 		{
-			try
-			{
-				ResultHelper<IEnumerable<QueryProductResultDto>> result = await _procedureService.ExecuteAllAsync<QueryProductResultDto, object>(
-					new { }, "spQueryProducts"
-				);
+			ResultHelper<IEnumerable<QueryProductResultDto>> result = await procedureService.ExecuteAllAsync<QueryProductResultDto, object>(
+				new { }, "spQueryProducts"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<IEnumerable<QueryProductResultDto>>.Fail(e);
-			}
+			if (result.Ok.False()) return BadRequest(result.Message);
+
+			return Ok(result.Data);
 		}
 
 		[HttpGet]
 		[Route("{id:int}")]
-		public async Task<ResultHelper<QueryProductResultDto>> GetAsync(int id)
+		public async Task<IActionResult> GetAsync(int id)
 		{
-			try
-			{
-				ResultHelper<QueryProductResultDto> result = await _procedureService.ExecuteAsync<QueryProductResultDto, QueryProductRequestDto>(
-					new QueryProductRequestDto { Id = id }, "spQueryProducts"
-				);
+			ResultHelper<QueryProductResultDto> result = await procedureService.ExecuteAsync<QueryProductResultDto, QueryProductRequestDto>(
+				new QueryProductRequestDto { Id = id }, "spQueryProducts"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<QueryProductResultDto>.Fail(e);
-			}
+			if (result.Ok.False()) return BadRequest(result.Message);
+
+			return Ok(result.Data);
 		}
 
 		[HttpPost]
-		[Authorize(Roles = "ADMIN")]
-		public async Task<ResultHelper<QueryProductResultDto>> Post(NewProductRequestDto request)
+		[Authorize(Roles = ADMIN)]
+		public async Task<IActionResult> Post(NewProductRequestDto request)
 		{
-			try
-			{
-				ResultHelper<QueryProductResultDto> result = await _procedureService.ExecuteAsync<QueryProductResultDto, NewProductRequestDto>(
-					request, "spSaveProduct"
-				);
+			ResultHelper<QueryProductResultDto> result = await procedureService.ExecuteAsync<QueryProductResultDto, NewProductRequestDto>(
+				request, "spSaveProduct"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<QueryProductResultDto>.Fail(e);
-			}
+			if (result.Ok.False()) return BadRequest(result.Message);
+
+			return Ok(result.Data);
 		}
 
 		[HttpPut]
-		[Authorize(Roles = "ADMIN")]
-		public async Task<ResultHelper<QueryProductResultDto>> Put(UpdateProductRequestDto request)
+		[Authorize(Roles = ADMIN)]
+		public async Task<IActionResult> Put(UpdateProductRequestDto request)
 		{
-			try
-			{
-				ResultHelper<QueryProductResultDto> result = await _procedureService.ExecuteAsync<QueryProductResultDto, UpdateProductRequestDto>(
-					request, "spSaveProduct"
-				);
+			ResultHelper<QueryProductResultDto> result = await procedureService.ExecuteAsync<QueryProductResultDto, UpdateProductRequestDto>(
+				request, "spSaveProduct"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<QueryProductResultDto>.Fail(e);
-			}
+			if (result.Ok.False()) return BadRequest(result.Message);
+
+			return Ok(result.Data);
 		}
 
 		[HttpDelete]
-		[Authorize(Roles = "ADMIN")]
-		public async Task<ResultHelper<QueryProductResultDto>> Delete(DeleteProductRequestDto request)
+		[Authorize(Roles = ADMIN)]
+		public async Task<IActionResult> Delete(DeleteProductRequestDto request)
 		{
-			try
-			{
-				ResultHelper<QueryProductResultDto> result = await _procedureService.ExecuteAsync<QueryProductResultDto, DeleteProductRequestDto>(
-					request, "spDeleteProduct"
-				);
+			ResultHelper<QueryProductResultDto> result = await procedureService.ExecuteAsync<QueryProductResultDto, DeleteProductRequestDto>(
+				request, "spDeleteProduct"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<QueryProductResultDto>.Fail(e);
-			}
+			if (result.Ok.False()) return BadRequest(result.Message);
+
+			return Ok(result.Data);
 		}
 	}
 }

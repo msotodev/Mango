@@ -7,12 +7,14 @@ using EssentialLayers.Request.Services.Http;
 using Mango.WebApp.Service.Session;
 using Mango.WebApp.Service.Token;
 using Microsoft.AspNetCore.Mvc;
+using static EssentialLayers.Request.Helpers.Types.HttpTypes;
 
 namespace Mango.WebApp.Service.Auth
 {
 	public class AuthService : IAuthService
 	{
 		private const string CONTROLLER_NAME = "Auth";
+
 		/**/
 
 		private readonly IHttpService _httpService;
@@ -38,11 +40,13 @@ namespace Mango.WebApp.Service.Auth
 			_sessionService = sessionService;
 			_tokenService = tokenService;
 
+			string baseUri = configuration["ServicesUrls:AuthApi"]!;
+
 			httpService.SetOptions(
 				new HttpOption
 				{
-					BaseUri = configuration?.GetSection("ServicesUrls").GetValue<string>("AuthApi")!,
-					CastResultAsResultHelper = true
+					BaseUri = baseUri,
+					ResultType = ResultType.ResultHelper
 				}
 			);
 		}

@@ -15,6 +15,11 @@ builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 
+builder.Services.AddHttpClient("GitHub", c => {
+	c.BaseAddress = new Uri("https://api.github.com/");
+	c.DefaultRequestHeaders.UserAgent.ParseAdd("MyApp/1.0");
+});
+
 builder.Services.UseRequest();
 builder.Services.AddMudServices();
 

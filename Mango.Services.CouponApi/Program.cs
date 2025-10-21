@@ -1,6 +1,4 @@
-using AutoMapper;
 using EssentialLayers.Dapper;
-using Mango.Services.CouponApi.Helpers;
 using Mango.Services.CouponApi.Helpers.Extensions;
 
 namespace Mango.Services.CouponApi
@@ -19,10 +17,6 @@ namespace Mango.Services.CouponApi
 
 			builder.Services.AddAuthorization();
 			builder.Services.UseDapper();
-
-			IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
-			builder.Services.AddSingleton(mapper);
-			//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 			WebApplication app = builder.Build();
 

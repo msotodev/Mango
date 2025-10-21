@@ -1,8 +1,10 @@
 using CommonLibrary.Dtos.Category;
 using EssentialLayers.Dapper.Services.Procedure;
+using EssentialLayers.Helpers.Extension;
 using EssentialLayers.Helpers.Result;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static CommonLibrary.Constants.RoleConstant;
 
 namespace Mango.Services.ProductApi.Controllers
 {
@@ -12,97 +14,66 @@ namespace Mango.Services.ProductApi.Controllers
 		IProcedureService procedureService
 	) : ControllerBase
 	{
-		private readonly IProcedureService _procedureService = procedureService;
-
-		/**/
-
 		[HttpGet]
-		public async Task<ResultHelper<IEnumerable<QueryCategoryResultDto>>> GetAsync()
+		public async Task<IActionResult> GetAsync()
 		{
-			try
-			{
-				ResultHelper<IEnumerable<QueryCategoryResultDto>> result = await _procedureService.ExecuteAllAsync<QueryCategoryResultDto, object>(
-					new { }, "spQueryCategories"
-				);
+			ResultHelper<IEnumerable<QueryCategoryResultDto>> result = await procedureService.ExecuteAllAsync<QueryCategoryResultDto, object>(
+				new { }, "spQueryCategories"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<IEnumerable<QueryCategoryResultDto>>.Fail(e);
-			}
+			if (result.Ok.False()) return BadRequest(result.Message);
+
+			return Ok(result.Data);
 		}
 
 		[HttpGet]
 		[Route("{id:int}")]
-		public async Task<ResultHelper<QueryCategoryResultDto>> GetAsync(int id)
+		public async Task<IActionResult> GetAsync(int id)
 		{
-			try
-			{
-				ResultHelper<QueryCategoryResultDto> result = await _procedureService.ExecuteAsync<QueryCategoryResultDto, QueryCategoryRequestDto>(
-					new QueryCategoryRequestDto { Id = id }, "spQueryCategories"
-				);
+			ResultHelper<QueryCategoryResultDto> result = await procedureService.ExecuteAsync<QueryCategoryResultDto, QueryCategoryRequestDto>(
+				new QueryCategoryRequestDto { Id = id }, "spQueryCategories"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<QueryCategoryResultDto>.Fail(e);
-			}
+			if (result.Ok.False()) return BadRequest(result.Message);
+
+			return Ok(result.Data);
 		}
 
 		[HttpPost]
-		[Authorize(Roles = "ADMIN")]
-		public async Task<ResultHelper<QueryCategoryResultDto>> Post(NewCategoryRequestDto request)
+		[Authorize(Roles = ADMIN)]
+		public async Task<IActionResult> Post(NewCategoryRequestDto request)
 		{
-			try
-			{
-				ResultHelper<QueryCategoryResultDto> result = await _procedureService.ExecuteAsync<QueryCategoryResultDto, NewCategoryRequestDto>(
-					request, "spSaveCategory"
-				);
+			ResultHelper<QueryCategoryResultDto> result = await procedureService.ExecuteAsync<QueryCategoryResultDto, NewCategoryRequestDto>(
+				request, "spSaveCategory"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<QueryCategoryResultDto>.Fail(e);
-			}
+			if (result.Ok.False()) return BadRequest(result.Message);
+
+			return Ok(result.Data);
 		}
 
 		[HttpPut]
-		[Authorize(Roles = "ADMIN")]
-		public async Task<ResultHelper<QueryCategoryResultDto>> Put(UpdateCategoryRequestDto request)
+		[Authorize(Roles = ADMIN)]
+		public async Task<IActionResult> Put(UpdateCategoryRequestDto request)
 		{
-			try
-			{
-				ResultHelper<QueryCategoryResultDto> result = await _procedureService.ExecuteAsync<QueryCategoryResultDto, UpdateCategoryRequestDto>(
-					request, "spSaveCategory"
-				);
+			ResultHelper<QueryCategoryResultDto> result = await procedureService.ExecuteAsync<QueryCategoryResultDto, UpdateCategoryRequestDto>(
+				request, "spSaveCategory"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<QueryCategoryResultDto>.Fail(e);
-			}
+			if (result.Ok.False()) return BadRequest(result.Message);
+
+			return Ok(result.Data);
 		}
 
 		[HttpDelete]
-		[Authorize(Roles = "ADMIN")]
-		public async Task<ResultHelper<QueryCategoryResultDto>> Delete(DeleteCategoryRequestDto request)
+		[Authorize(Roles = ADMIN)]
+		public async Task<IActionResult> Delete(DeleteCategoryRequestDto request)
 		{
-			try
-			{
-				ResultHelper<QueryCategoryResultDto> result = await _procedureService.ExecuteAsync<QueryCategoryResultDto, DeleteCategoryRequestDto>(
-					request, "spDeleteCategory"
-				);
+			ResultHelper<QueryCategoryResultDto> result = await procedureService.ExecuteAsync<QueryCategoryResultDto, DeleteCategoryRequestDto>(
+				request, "spDeleteCategory"
+			);
 
-				return result;
-			}
-			catch (Exception e)
-			{
-				return ResultHelper<QueryCategoryResultDto>.Fail(e);
-			}
+			return Ok(result);
 		}
 	}
 }
