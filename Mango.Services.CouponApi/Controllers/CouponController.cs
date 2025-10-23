@@ -10,7 +10,7 @@ namespace Mango.Services.CouponApi.Controllers
 {
 	[Authorize]
 	[ApiController]
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	public class CouponController(IProcedureService procedureService) : ControllerBase
 	{
 		private readonly IProcedureService _procedureService = procedureService;

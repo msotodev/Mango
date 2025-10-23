@@ -10,7 +10,7 @@ using static CommonLibrary.Constants.RoleConstant;
 namespace Mango.Services.ProductApi.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	public class CategoryController(
 		IProcedureService procedureService
 	) : ControllerBase
@@ -25,6 +25,8 @@ namespace Mango.Services.ProductApi.Controllers
 				);
 
 				if (result.Ok.False()) return BadRequest(result.Message);
+
+				Debug.WriteLine(result.Data);
 
 				return Ok(result.Data);
 			}

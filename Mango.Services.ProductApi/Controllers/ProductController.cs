@@ -9,7 +9,7 @@ using static CommonLibrary.Constants.RoleConstant;
 namespace Mango.Services.ProductApi.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	public class ProductController(
 		IProcedureService procedureService
 	) : ControllerBase
