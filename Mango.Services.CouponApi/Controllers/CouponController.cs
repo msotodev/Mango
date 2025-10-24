@@ -1,4 +1,4 @@
-using CommonLibrary.Dtos.Coupon;
+using CommonLibrary.Dtos;
 using EssentialLayers.Dapper.Services.Procedure;
 using EssentialLayers.Helpers.Extension;
 using EssentialLayers.Helpers.Result;

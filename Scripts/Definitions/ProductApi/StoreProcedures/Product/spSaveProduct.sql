@@ -8,7 +8,7 @@ ALTER PROCEDURE spSaveProduct (
 	@Price DECIMAL(18, 2),
 	@CategoryId INT,
 	@ImageUrl VARCHAR(1024),
-	@UserId VARCHAR(45),
+	@UserId INT,
 	@ReturnsObject BIT = 1
 )
 AS

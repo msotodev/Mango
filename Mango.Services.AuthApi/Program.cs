@@ -22,7 +22,7 @@ namespace Mango
 
 			builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
 
-			builder.Services.AddIdentity<AppUser, IdentityRole>().
+			builder.Services.AddIdentity<AppUser, AppRole>().
 				AddEntityFrameworkStores<AppDbContext>().
 				AddDefaultTokenProviders();
 

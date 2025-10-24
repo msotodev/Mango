@@ -1,0 +1,13 @@
+﻿@page "/categories-page"
+
+<h3>Categories</h3>
+
+<ul style="list-style: none;">
+	@foreach (QueryCategoryResultDto category in Categories)
+	{
+		<li class="d-flex gap-2">
+			<span>@category.Id</span>
+			<span>@category.Name</span>
+		</li>
+	}
+</ul>

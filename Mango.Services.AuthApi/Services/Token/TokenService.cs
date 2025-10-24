@@ -21,7 +21,7 @@ namespace Mango.Services.AuthApi.Services.Token
 
 			List<Claim> claims =
 			[
-				new Claim(JwtRegisteredClaimNames.Sub, appUser.Id!),
+				new Claim(JwtRegisteredClaimNames.Sub, $"{appUser.Id}"),
 				new Claim(JwtRegisteredClaimNames.Email, appUser.Email!),
 				new Claim(JwtRegisteredClaimNames.Name, appUser.UserName!)
 			];

@@ -4,7 +4,7 @@ GO
 
 ALTER PROCEDURE spDeleteCoupon (
 	@Id INT,
-	@UserId VARCHAR(45),
+	@UserId INT,
 	@ReturnsObject BIT = 1
 )
 AS

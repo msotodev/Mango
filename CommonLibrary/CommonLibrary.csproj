@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="EssentialLayers" Version="1.6.6" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="EssentialLayers" Version="1.6.6" />
+	</ItemGroup>
 
 </Project>

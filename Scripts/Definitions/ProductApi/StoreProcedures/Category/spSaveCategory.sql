@@ -5,7 +5,7 @@ GO
 ALTER PROCEDURE spSaveCategory (
 	@Id INT,
 	@Name VARCHAR(45),
-	@UserId VARCHAR(45),
+	@UserId INT,
 	@ReturnsObject BIT = 1
 )
 AS

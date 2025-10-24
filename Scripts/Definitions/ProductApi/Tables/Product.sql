@@ -15,12 +15,12 @@ IF NOT EXISTS (SELECT  1 FROM SYS.TABLES WHERE NAME = 'Product')
 			CONSTRAINT DF_Product_ImageUrl DEFAULT(''),
 			Created DATETIME NOT NULL
 			CONSTRAINT DF_Product_Created DEFAULT('1900-01-01 00:00:00.0'),
-			CreatedBy VARCHAR(45) NOT NULL
-			CONSTRAINT DF_Product_CreatedBy DEFAULT(''),
+			CreatedBy INT NOT NULL
+			CONSTRAINT DF_Product_CreatedBy DEFAULT(-1),
 			Updated DATETIME NOT NULL
 			CONSTRAINT DF_Product_Updated DEFAULT('1900-01-01 00:00:00.0'),
-			UpdatedBy VARCHAR(45) NOT NULL
-			CONSTRAINT DF_Product_UpdatedBy DEFAULT('')
+			UpdatedBy INT NOT NULL
+			CONSTRAINT DF_Product_UpdatedBy DEFAULT(-1)
 		);
 
 	END;

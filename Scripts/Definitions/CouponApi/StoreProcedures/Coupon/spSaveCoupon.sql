@@ -7,7 +7,7 @@ ALTER PROCEDURE spSaveCoupon (
 	@Code VARCHAR(45),
 	@DisccountAmount FLOAT,
 	@MinAmount FLOAT,
-	@UserId VARCHAR(45),
+	@UserId INT,
 	@ReturnsObject BIT = 1
 )
 AS
