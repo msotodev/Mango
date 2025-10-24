@@ -1,13 +1,14 @@
 ﻿@page "/products-page"
 
-<h3>Products</h3>
-
-<ul style="list-style: none;">
-	@foreach (QueryProductResultDto product in Products)
-	{
-		<li class="d-flex gap-2">
-			<span>@product.Id</span>
-			<span>@product.Name</span>
-		</li>
-	}
-</ul>
+<div class="d-flex flex-column gap-2">
+	<h3>Products</h3>
+	<ul class="list-unstyled d-flex flex-column gap-2">
+		@foreach (QueryProductResultDto product in Products)
+		{
+			<li class="d-flex gap-2 alert-light p-2">
+				<span>@product.Id</span>
+				<span>@product.Name</span>
+			</li>
+		}
+	</ul>
+</div>

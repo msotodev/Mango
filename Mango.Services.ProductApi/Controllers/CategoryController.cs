@@ -51,6 +51,18 @@ namespace Mango.Services.ProductApi.Controllers
 			return Ok(result.Data);
 		}
 
+		[HttpGet("ByName/{name}")]
+		public async Task<IActionResult> GetAsync(string name)
+		{
+			ResultHelper<IEnumerable<QueryCategoryResultDto>> result = await procedureService.ExecuteAllAsync<QueryCategoryResultDto, QueryCategoryRequestDto>(
+				new QueryCategoryRequestDto { Id = -1, Name = name }, "spQueryCategories"
+			);
+
+			if (result.Ok.False()) return BadRequest(result.Message);
+
+			return Ok(result.Data);
+		}
+
 		[HttpPost]
 		[Authorize(Roles = ADMIN)]
 		public async Task<IActionResult> Post(NewCategoryRequestDto request)

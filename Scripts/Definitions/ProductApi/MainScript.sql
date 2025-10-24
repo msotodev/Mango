@@ -166,7 +166,8 @@ IF OBJECT_ID( 'spQueryCategories' ) IS NULL
 GO
 
 ALTER PROCEDURE spQueryCategories (
-	@Id INT = -1
+	@Id INT = -1,
+	@Name VARCHAR(45) = ''
 )
 AS
 /*								
@@ -217,7 +218,8 @@ SET NOCOUNT ON
 		SELECT 1, '', C.Id,
 			C.Name
 		FROM dbo.Category C
-		WHERE @Id IN (-1, C.Id);
+		WHERE @Id IN (-1, 0, C.Id)
+			AND (Name LIKE CONCAT('%', @Name, '%') OR @Name = '');
 
 		IF NOT EXISTS (SELECT 1 FROM #Response)
 			BEGIN
