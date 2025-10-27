@@ -17,7 +17,7 @@ namespace Mango.Services.AuthApi.Services.Token
 		{
 			JwtSecurityTokenHandler tokenHandler = new();
 
-			byte[] key = Encoding.ASCII.GetBytes(_jwtOptions.Secret);
+			byte[] key = Encoding.ASCII.GetBytes(_jwtOptions.Key);
 
 			List<Claim> claims =
 			[
