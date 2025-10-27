@@ -2,5 +2,5 @@
 
 namespace Mango.Services.AuthApi.Models
 {
-	public class AppRole : IdentityRole<int> { }
+	public class ApplicationRole : IdentityRole<int> { }
 }

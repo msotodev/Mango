@@ -2,5 +2,5 @@
 
 namespace Mango.Services.AuthApi.Models
 {
-	public class AppUser : IdentityUser<int> { }
+	public class ApplicationUser : IdentityUser<int> { }
 }

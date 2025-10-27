@@ -1,7 +1,6 @@
 using Mango.Services.AuthApi.Data;
 using Mango.Services.AuthApi.Models;
-using Mango.Services.AuthApi.Services.Auth;
-using Mango.Services.AuthApi.Services.Token;
+using Mango.Services.AuthApi.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,12 +21,13 @@ namespace Mango
 
 			builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
 
-			builder.Services.AddIdentity<AppUser, AppRole>().
+			builder.Services.AddIdentity<ApplicationUser, ApplicationRole>().
 				AddEntityFrameworkStores<AppDbContext>().
 				AddDefaultTokenProviders();
 
-			builder.Services.AddScoped<IAuthService, AuthService>();
-			builder.Services.AddScoped<ITokenService, TokenService>();
+			builder.Services.AddScoped<RoleService>();
+			builder.Services.AddScoped<TokenService>();
+			builder.Services.AddScoped<UserService>();
 
 			builder.Services.AddControllers();
 			builder.Services.AddEndpointsApiExplorer();

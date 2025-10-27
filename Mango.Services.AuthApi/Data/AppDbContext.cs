@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Mango.Services.AuthApi.Data
 {
-	public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext<AppUser, AppRole, int>(options)
+	public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext<ApplicationUser, ApplicationRole, int>(options)
 	{
-		public DbSet<AppUser> AppUser { get; set; }
+		public DbSet<ApplicationUser> AppUser { get; set; }
 
 		/**/
 
