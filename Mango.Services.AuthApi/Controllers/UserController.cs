@@ -2,11 +2,13 @@
 using EssentialLayers.Helpers.Extension;
 using EssentialLayers.Helpers.Result;
 using Mango.Services.AuthApi.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mango.Services.AuthApi.Controllers
 {
 	[Route("api/[controller]")]
+	[Authorize(AuthenticationSchemes = "Bearer")]
 	[ApiController]
 	public class UserController(
 		UserService userService,
@@ -15,6 +17,7 @@ namespace Mango.Services.AuthApi.Controllers
 	) : ControllerBase
 	{
 		[HttpPost("Login")]
+		[AllowAnonymous]
 		public async Task<IActionResult> LoginAsync(LoginRequestDto request)
 		{
 			ResultHelper<LoginResponseDto> result = await userService.LoginAsync(request);
@@ -40,7 +43,7 @@ namespace Mango.Services.AuthApi.Controllers
 				{
 					Token = tokenResult.Data,
 					User = user
-				}	
+				}
 			);
 		}
 

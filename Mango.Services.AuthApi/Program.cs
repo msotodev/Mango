@@ -1,4 +1,6 @@
+using CommonLibrary.Options;
 using Mango.Services.AuthApi.Data;
+using Mango.Services.AuthApi.Extensions;
 using Mango.Services.AuthApi.Models;
 using Mango.Services.AuthApi.Services;
 using Microsoft.AspNetCore.Identity;
@@ -12,6 +14,8 @@ namespace Mango
 		{
 			WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+			ConfigurationManager configuration = builder.Configuration;
+
 			builder.Services.AddDbContext<AppDbContext>(
 				option =>
 				{
@@ -19,7 +23,7 @@ namespace Mango
 				}
 			);
 
-			builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
+			builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
 
 			builder.Services.AddIdentity<ApplicationUser, ApplicationRole>().
 				AddEntityFrameworkStores<AppDbContext>().
@@ -28,6 +32,10 @@ namespace Mango
 			builder.Services.AddScoped<RoleService>();
 			builder.Services.AddScoped<TokenService>();
 			builder.Services.AddScoped<UserService>();
+
+			builder.Services.AddAuthorization();
+			builder.AddCustomAuthentication();
+			builder.AddCustomSwaggerGen();
 
 			builder.Services.AddControllers();
 			builder.Services.AddEndpointsApiExplorer();

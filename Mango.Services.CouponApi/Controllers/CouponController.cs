@@ -8,8 +8,8 @@ using static CommonLibrary.Constants.RoleConstant;
 
 namespace Mango.Services.CouponApi.Controllers
 {
-	[Authorize]
 	[ApiController]
+	[Authorize(AuthenticationSchemes = "Bearer")]
 	[Route("api/[controller]")]
 	public class CouponController(IProcedureService procedureService) : ControllerBase
 	{

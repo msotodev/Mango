@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using CommonLibrary.Options;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
-namespace Mango.Services.CouponApi.Helpers.Extensions
+namespace Mango.Services.CouponApi.Extensions
 {
 	public static class WebApplicationBuilderExtensions
 	{
@@ -12,7 +13,7 @@ namespace Mango.Services.CouponApi.Helpers.Extensions
 			self.Services.AddSwaggerGen(
 				option =>
 				{
-					option.SwaggerDoc("v1", new OpenApiInfo { Title = "Mango.Services.CouponApi", Version = "v1" });
+					option.SwaggerDoc("v1", new OpenApiInfo { Title = nameof(CouponApi), Version = "v1" });
 					option.AddSecurityDefinition("Bearer",
 						new OpenApiSecurityScheme
 						{
@@ -45,31 +46,31 @@ namespace Mango.Services.CouponApi.Helpers.Extensions
 
 		public static void AddCustomAuthentication(this WebApplicationBuilder self)
 		{
-			IConfigurationSection jwtOptions = self.Configuration.GetSection("JwtOptions");
+			JwtOptions? jwtOptions = self.Configuration.GetSection("Jwt").Get<JwtOptions>();
 
-			string audience = jwtOptions?.GetValue<string>("Audience")!;
-			string issuer = jwtOptions?.GetValue<string>("Issuer")!;
-			string secret = jwtOptions?.GetValue<string>("Secret")!;
+			if (jwtOptions == null) return;
 
-			self.Services.AddAuthentication(x =>
-			{
-				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-				x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-			}
-			).AddJwtBearer(
-				x =>
+			self.Services.AddAuthentication(
+				options =>
 				{
-					x.RequireHttpsMetadata = false;
-					x.SaveToken = true;
-					x.TokenValidationParameters = new TokenValidationParameters
+					options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+					options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+					options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+				}
+			).AddJwtBearer(
+				options =>
+				{
+					options.RequireHttpsMetadata = false;
+					options.SaveToken = true;
+					options.TokenValidationParameters = new TokenValidationParameters
 					{
-						ValidateIssuerSigningKey = true,
-						IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secret)),
 						ValidateIssuer = true,
-						ValidIssuer = issuer,
 						ValidateAudience = true,
-						ValidAudience = audience,
-						ValidateLifetime = true
+						ValidateLifetime = true,
+						ValidateIssuerSigningKey = true,
+						ValidIssuer = jwtOptions.Issuer,
+						ValidAudience = jwtOptions.Audience,
+						IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtOptions.Key))
 					};
 				}
 			);

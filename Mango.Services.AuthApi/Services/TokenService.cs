@@ -1,5 +1,5 @@
-﻿using EssentialLayers.Helpers.Result;
-using Mango.Services.AuthApi.Models;
+﻿using CommonLibrary.Options;
+using EssentialLayers.Helpers.Result;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,7 +12,9 @@ namespace Mango.Services.AuthApi.Services
 	{
 		private readonly JwtOptions _jwtOptions = jwtOptions.Value;
 
-		public ResultHelper<string> Generate(string id, string email, string userName, IEnumerable<string> roles)
+		public ResultHelper<string> Generate(
+			string id, string email, string userName, IEnumerable<string> roles
+		)
 		{
 			JwtSecurityTokenHandler tokenHandler = new();
 
@@ -32,7 +34,7 @@ namespace Mango.Services.AuthApi.Services
 				Audience = _jwtOptions.Audience,
 				Issuer = _jwtOptions.Issuer,
 				Subject = new ClaimsIdentity(claims),
-				Expires = DateTime.Now.AddDays(7),
+				Expires = DateTime.UtcNow.AddMinutes(_jwtOptions.ExpirationMinutes),
 				SigningCredentials = new SigningCredentials(
 					new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature
 				)

@@ -2,11 +2,13 @@
 using EssentialLayers.Helpers.Extension;
 using EssentialLayers.Helpers.Result;
 using Mango.Services.AuthApi.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mango.Services.AuthApi.Controllers
 {
 	[Route("api/[controller]")]
+	[Authorize(AuthenticationSchemes = "Bearer")]
 	[ApiController]
 	public class RoleController(
 		RoleService roleService

@@ -10,6 +10,7 @@ using static CommonLibrary.Constants.RoleConstant;
 namespace Mango.Services.ProductApi.Controllers
 {
 	[ApiController]
+	[Authorize(AuthenticationSchemes = "Bearer")]
 	[Route("api/[controller]")]
 	public class CategoryController(
 		IProcedureService procedureService

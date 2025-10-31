@@ -1,5 +1,6 @@
+using CommonLibrary.Options;
 using EssentialLayers.Dapper;
-using Mango.Services.ProductApi.Helpers.Extensions;
+using Mango.Services.ProductApi.Extensions;
 
 namespace Mango.Services.ProductApi
 {
@@ -9,18 +10,20 @@ namespace Mango.Services.ProductApi
 		{
 			WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+			ConfigurationManager configuration = builder.Configuration;
+
+			builder.Services.Configure<JwtOptions>(configuration.GetSection("Jwt"));
+
 			builder.Services.AddControllers();
 			builder.Services.AddEndpointsApiExplorer();
 
-			builder.AddCustomSwaggerGen();
-			builder.AddCustomAuthentication();
-
 			builder.Services.AddAuthorization();
+			builder.AddCustomAuthentication();
+			builder.AddCustomSwaggerGen();
+
 			builder.Services.UseDapper();
 
 			WebApplication app = builder.Build();
-
-			IConfiguration? configuration = app.Services.GetService<IConfiguration>();
 
 			string? connectionString = configuration?.GetConnectionString("Local");
 
