@@ -1,20 +1,17 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
-	<div class="sidebar">
-		<NavMenu />
-	</div>
+	<AuthorizeView>
+		<Authorized>
+			<div class="sidebar">
+				<NavMenu />
+			</div>
+		</Authorized>
+	</AuthorizeView>
 
 	<main>
 		<article class="content p-3">
-			<AuthorizeView>
-				<Authorized>
-					@Body
-				</Authorized>
-				<NotAuthorized>
-					<h1>Not Authorized</h1>
-				</NotAuthorized>
-			</AuthorizeView>
+			@Body
 		</article>
 
 		<MudThemeProvider />

@@ -1,0 +1,18 @@
+﻿@page "/logout"
+
+@code {
+
+    [Inject] private CookieSessionService CookieSessionService { get; set; } = default!;
+
+    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        Response result = CookieSessionService.SignOutAsync().Result;
+
+        if (result.Ok)
+        {
+            NavigationManager.NavigateTo("/login");
+        }
+    }
+}

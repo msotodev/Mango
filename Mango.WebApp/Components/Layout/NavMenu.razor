@@ -1,43 +1,39 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark d-flex justify-content-center">
-	<a class="navbar-brand text-center" href="">Mango</a>
+	<a class="navbar-brand text-center" href="home">Mango</a>
 </div>
 
 <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
 
 <div class="nav-scrollable d-flex flex-column justify-content-between" onclick="document.querySelector('.navbar-toggler').click()">
-	<nav class="flex-column">
+	<nav class="d-flex flex-column">
 		<div class="nav-item px-3">
-			<NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+			<NavLink class="nav-link" href="home" Match="NavLinkMatch.All">
 				<span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
 			</NavLink>
 		</div>
 
 		<AuthorizeView>
-			<div class="nav-item px-3">
-				<NavLink class="nav-link" href="products-page">
-					<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Products
-				</NavLink>
-			</div>
+			<article class="d-flex flex-column justify-content-between">
+				<div>
+					<div class="nav-item px-3">
+						<NavLink class="nav-link" href="products-page">
+							<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Products
+						</NavLink>
+					</div>
 
-			<div class="nav-item px-3">
-				<NavLink class="nav-link" href="categories-page">
-					<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Categories
-				</NavLink>
-			</div>
+					<div class="nav-item px-3">
+						<NavLink class="nav-link" href="categories-page">
+							<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Categories
+						</NavLink>
+					</div>
+				</div>
+				<div class="nav-item px-3">
+					<NavLink class="nav-link" href="logout">
+						<span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Logout
+					</NavLink>
+				</div>
+			</article>
+
 		</AuthorizeView>
 	</nav>
-	<footer class="d-flex justify-content-center py-2">
-		<AuthorizeView>
-			<Authorized>
-				<MudButton Variant="Variant.Filled"
-						   Color="Color.Primary"
-						   OnClick="@LogoutAsync">Logout</MudButton>
-			</Authorized>
-			<NotAuthorized>
-				<MudButton Variant="Variant.Filled"
-						   Color="Color.Primary"
-						   OnClick="@LoginAsync">Login</MudButton>
-			</NotAuthorized>
-		</AuthorizeView>
-	</footer>
 </div>

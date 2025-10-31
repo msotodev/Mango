@@ -5,7 +5,7 @@ using System.Security.Claims;
 
 namespace Mango.WebApp.Providers
 {
-	public class JwtAuthenticationStateProvider(IJSRuntime jsRuntime) : AuthenticationStateProvider
+	public class JwtAuthStateProvider(IJSRuntime jsRuntime) : AuthenticationStateProvider
 	{
 		public override async Task<AuthenticationState> GetAuthenticationStateAsync()
 		{

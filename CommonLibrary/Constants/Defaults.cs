@@ -2,6 +2,6 @@
 {
 	public static class Defaults
 	{
-		public static string TokenCookie = "TokenCookieValue";
+		public static string TokenCookie = "MangoCookieValue";
 	}
 }
