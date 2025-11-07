@@ -1,6 +1,7 @@
 using CommonLibrary.Options;
 using EssentialLayers.Dapper;
 using Mango.Services.CouponApi.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Mango.Services.CouponApi
 {
@@ -16,6 +17,7 @@ namespace Mango.Services.CouponApi
 
 			builder.Services.AddControllers();
 			builder.Services.AddEndpointsApiExplorer();
+			builder.Services.AddOpenApi();
 
 			builder.Services.AddAuthorization();
 			builder.AddCustomAuthentication();

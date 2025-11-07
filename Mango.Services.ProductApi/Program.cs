@@ -11,6 +11,8 @@ namespace Mango.Services.ProductApi
 			WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 			ConfigurationManager configuration = builder.Configuration;
+			
+			ThreadPool.SetMinThreads(100, 100);
 
 			builder.Services.Configure<JwtOptions>(configuration.GetSection("Jwt"));
 

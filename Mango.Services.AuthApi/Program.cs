@@ -19,7 +19,7 @@ namespace Mango
 			builder.Services.AddDbContext<AppDbContext>(
 				option =>
 				{
-					option.UseSqlServer(builder.Configuration.GetConnectionString("Local"));
+					option.UseSqlServer(builder.Configuration.GetConnectionString("MangoAuth"));
 				}
 			);
 
@@ -55,20 +55,9 @@ namespace Mango
 
 			app.MapControllers();
 
-			ApplyMigration(app.Services);
+			app.Services.ApplyMigration();
 
 			app.Run();
-		}
-
-		private static void ApplyMigration(IServiceProvider serviceProvider)
-		{
-			using IServiceScope scope = serviceProvider.CreateScope();
-			AppDbContext dataBase = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-			if (dataBase.Database.GetPendingMigrations().Any())
-			{
-				dataBase.Database.Migrate();
-			}
 		}
 	}
 }
